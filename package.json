@@ -1,0 +1,14 @@
+{
+  "name": "task-mono",
+  "private": true,
+  "displayName": "Task Moon",
+  "description": "A simple task management",
+  "version": "0.1.0",
+  "homepage": "PROJECT_GIT_REPOSITORY_URL",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Anggit Ari Utomo",
+    "email": "anggitutomo97@gmail.com",
+    "url": "https://www.linkedin.com/in/MY_LINKEDIN_PAGE_URL"
+  }
+}
