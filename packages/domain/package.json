@@ -1,0 +1,24 @@
+{
+  "name": "@{{ROOT_PROJECT_NAME}}/domain",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "displayName": "{{ROOT_PROJECT_DISPLAY_NAME}} - Domain layer",
+  "description": "{{PROJECT_MINIMAL_DESCRIPTION}}",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Leandro S. Gomes",
+    "email": "leandroluk@gmail.com",
+    "url": "https://www.linkedin.com/in/leandroluk"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "compile": "tsc --noEmit"
+  },
+  "keywords": [],
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
