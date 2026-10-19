@@ -36,4 +36,6 @@ The web app runs at <http://localhost:3000> and the API at <http://localhost:400
 3. Add API routes and services in `apps/api`. Inject `DatabaseService` from `apps/api/src/database.service.ts` into services registered in `AppModule` to query through Prisma.
 4. Build pages in `apps/web`. Put reusable React components in `packages/ui` and code shared by the API and web app in `packages/domain`.
 
+If your PostgreSQL database already has tables, run `pnpm --filter @task-moon/database exec prisma db pull` to bring them into the Prisma schema. [Baseline the existing database](https://www.prisma.io/docs/orm/v7/prisma-migrate/workflows/baselining) before using Prisma Migrate for those tables; the `migrate dev --name init` step above is for an empty database. Hosted databases may also need [a configured shadow database](https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate/shadow-database) for `migrate dev`.
+
 `pnpm build` builds the workspace; `pnpm lint` and `pnpm tsc` check it.
