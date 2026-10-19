@@ -26,7 +26,7 @@ Open <http://localhost:3000>. The web app fetches `Hello, world!` from <http://l
 ## Build your app
 
 1. Add API routes and services in `apps/api`. Fetch them from Next.js server components in `apps/web`, as the home page does. Put reusable React components in `packages/ui` and shared code in `packages/domain`.
-2. When you need PostgreSQL, use your own server or start the optional local one with `docker compose up -d monorepo-postgres`. Copy `packages/database/.env.example` to `packages/database/.env`, then set `DATABASE_URL` to your connection string. The example points to `localhost:5433`; an exported `DATABASE_URL` takes precedence.
+2. When you need PostgreSQL, use an available PostgreSQL server. Copy `packages/database/.env.example` to `packages/database/.env` and set `DATABASE_URL` to your connection string; an exported `DATABASE_URL` takes precedence.
 3. Add models to [`packages/database/prisma/schema.prisma`](packages/database/prisma/schema.prisma). For a new, empty database, create and apply the first migration with `pnpm --filter @task-moon/database exec prisma migrate dev --name init`.
 4. Regenerate and compile the shared client with `pnpm --filter @task-moon/database build`. Register `DatabaseService` from `apps/api/src/database.service.ts` in `AppModule`, then inject it into services that query through Prisma. Restart `pnpm dev` after changing the schema.
 

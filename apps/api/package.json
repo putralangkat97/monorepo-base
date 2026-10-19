@@ -19,9 +19,7 @@
     "lint": "gts lint",
     "test": "vitest run",
     "test:ci": "vitest run --coverage",
-    "compile": "tsc --noEmit",
-    "compose": "docker-compose down --remove-orphans && docker-compose up --build --force-recreate",
-    "compose:d": "npm run compose -- -d"
+    "compile": "tsc --noEmit"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",

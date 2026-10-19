@@ -10,8 +10,6 @@
     "SonarSource.sonarlint-vscode",
     // to ensure produtivity
     "eamodio.gitlens",
-    // to better integration with docker
-    "ms-azuretools.vscode-docker",
     // to better experience on writing .prisma files
     "Prisma.prisma",
     // to better experience using tailwindcss on frontend (default css library on NextJS)
