@@ -13,6 +13,8 @@
   },
   "scripts": {
     "dev": "pnpm --parallel -r run dev",
+    "test": "pnpm --parallel -r run test",
+    "test:ci": "pnpm --parallel -r run test:ci",
     "tsc": "pnpm --parallel -r run compile",
     "lint": "pnpm --parallel -r run lint",
     "build": "pnpm --parallel -r run build",
