@@ -1,5 +1,5 @@
-import {Injectable} from '@nestjs/common';
-import {sum} from '@task-moon/domain';
+import { Injectable } from '@nestjs/common';
+import { sum } from '@task-moon/domain';
 
 @Injectable()
 export class AppService {
