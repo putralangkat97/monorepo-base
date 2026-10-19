@@ -18,5 +18,17 @@
     "build": "pnpm --parallel -r run build",
     "compose": "docker-compose down --remove-orphans && docker-compose up --build --force-recreate",
     "compose:d": "npm run compose -- -d"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "commitlint": "^21.2.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "lefthook": "^2.2.2"
   }
 }

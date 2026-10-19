@@ -2,4 +2,5 @@ packages:
   - "packages/*"
   - "apps/*"
 allowBuilds:
+  lefthook: true
   unrs-resolver: true
