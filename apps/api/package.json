@@ -1,9 +1,9 @@
 {
-  "name": "@{{ROOT_PROJECT_NAME}}/api",
+  "name": "@task-moon/api",
   "version": "0.0.1",
   "private": true,
-  "displayName": "{{ROOT_PROJECT_DISPLAY_NAME}} - Frontend application using NextJS",
-  "description": "{{PROJECT_MINIMAL_DESCRIPTION}}",
+  "displayName": "Task Moon API - Frontend application using NextJS",
+  "description": "an API service for Task Moon Frontend app",
   "license": "UNLICENSED",
   "author": {
     "name": "Anggit Ari Utomo",
@@ -25,6 +25,7 @@
     "@nestjs/core": "^12.0.1",
     "@nestjs/observe": "^0.3.0",
     "@nestjs/platform-express": "^12.0.1",
+    "@task-moon/domain": "workspace:*",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

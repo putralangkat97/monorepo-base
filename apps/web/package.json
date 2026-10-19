@@ -1,9 +1,9 @@
 {
-  "name": "@{{ROOT_PROJECT_NAME}}/web",
+  "name": "@task-moon/web",
   "version": "0.1.0",
   "private": true,
-  "displayName": "{{ROOT_PROJECT_DISPLAY_NAME}} - Frontend application using NextJS",
-  "description": "{{PROJECT_MINIMAL_DESCRIPTION}}",
+  "displayName": "Task Moon - Frontend application using NextJS",
+  "description": "a simple task management",
   "license": "UNLICENSED",
   "author": {
     "name": "Anggit Ari Utomo",
@@ -18,6 +18,7 @@
     "compile": "tsc --noEmit"
   },
   "dependencies": {
+    "@task-moon/domain": "workspace:*",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"
