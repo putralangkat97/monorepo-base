@@ -1,16 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "radix-nova",
+  "style": "radix-lyra",
   "rsc": true,
   "tsx": true,
   "tailwind": {
     "config": "",
     "css": "src/styles/globals.css",
-    "baseColor": "neutral",
+    "baseColor": "mist",
     "cssVariables": true,
     "prefix": ""
   },
-  "iconLibrary": "lucide",
+  "iconLibrary": "phosphor",
   "rtl": false,
   "aliases": {
     "components": "@task-moon/ui/components",
@@ -18,5 +18,7 @@
     "ui": "@task-moon/ui/components",
     "lib": "@task-moon/ui/lib",
     "hooks": "@task-moon/ui/hooks"
-  }
+  },
+  "menuColor": "default",
+  "menuAccent": "subtle"
 }
