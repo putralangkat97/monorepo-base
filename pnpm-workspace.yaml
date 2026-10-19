@@ -2,5 +2,7 @@ packages:
   - "packages/*"
   - "apps/*"
 allowBuilds:
+  '@prisma/engines': true
   lefthook: true
+  prisma: true
   unrs-resolver: true
