@@ -1,4 +1,4 @@
-import {sum} from "@task-moon/domain";
+import {sum} from '@task-moon/domain';
 
 export default function Home() {
   return (
