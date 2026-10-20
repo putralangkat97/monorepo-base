@@ -5,7 +5,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@task-moon/ui/components/collapsible"
+} from "@anggit-mono/ui/components/collapsible"
 import { CaretRightIcon } from "@phosphor-icons/react"
 
 function Trace({ className, ...props }: React.ComponentProps<"div">) {

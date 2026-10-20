@@ -4,9 +4,9 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
-import { Button } from "@task-moon/ui/components/button"
-import { Input } from "@task-moon/ui/components/input"
-import { Textarea } from "@task-moon/ui/components/textarea"
+import { Button } from "@anggit-mono/ui/components/button"
+import { Input } from "@anggit-mono/ui/components/input"
+import { Textarea } from "@anggit-mono/ui/components/textarea"
 
 function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (

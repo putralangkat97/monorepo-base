@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cn } from "cn"
 
-import { Button } from "@task-moon/ui/components/button"
+import { Button } from "@anggit-mono/ui/components/button"
 import { CaretLeftIcon, CaretRightIcon, DotsThreeIcon } from "@phosphor-icons/react"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {

@@ -1,10 +1,10 @@
 {
-  "name": "@task-moon/domain",
+  "name": "@anggit-mono/domain",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "displayName": "Task Moon Packages - Domain layer",
-  "description": "Packages for Task Moon FE & API",
+  "displayName": "Anggit Mono Domain",
+  "description": "Shared domain package for Anggit Mono",
   "license": "UNLICENSED",
   "author": {
     "name": "Leandro S. Gomes",

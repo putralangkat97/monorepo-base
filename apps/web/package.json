@@ -1,9 +1,9 @@
 {
-  "name": "@task-moon/web",
+  "name": "@anggit-mono/web",
   "version": "0.1.0",
   "private": true,
-  "displayName": "Task Moon - Frontend application using NextJS",
-  "description": "a simple task management",
+  "displayName": "Anggit Mono Web",
+  "description": "Frontend web app for Anggit Mono",
   "license": "UNLICENSED",
   "author": {
     "name": "Anggit Ari Utomo",
@@ -20,8 +20,8 @@
     "compile": "tsc --noEmit"
   },
   "dependencies": {
-    "@task-moon/domain": "workspace:*",
-    "@task-moon/ui": "workspace:*",
+    "@anggit-mono/domain": "workspace:*",
+    "@anggit-mono/ui": "workspace:*",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",

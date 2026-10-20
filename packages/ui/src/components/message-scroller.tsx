@@ -9,7 +9,7 @@ import {
 } from "@shadcn/react/message-scroller"
 import { cn } from "cn"
 
-import { Button } from "@task-moon/ui/components/button"
+import { Button } from "@anggit-mono/ui/components/button"
 import { ArrowDownIcon } from "@phosphor-icons/react"
 
 function MessageScrollerProvider(

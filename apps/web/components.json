@@ -14,8 +14,8 @@
   "rtl": false,
   "aliases": {
     "components": "#/components",
-    "utils": "@task-moon/ui/lib/utils",
-    "ui": "@task-moon/ui/components",
+    "utils": "@anggit-mono/ui/lib/utils",
+    "ui": "@anggit-mono/ui/components",
     "lib": "#/lib",
     "hooks": "#/hooks"
   },

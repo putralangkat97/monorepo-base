@@ -10,11 +10,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@task-moon/ui/components/dialog"
+} from "@anggit-mono/ui/components/dialog"
 import {
   InputGroup,
   InputGroupAddon,
-} from "@task-moon/ui/components/input-group"
+} from "@anggit-mono/ui/components/input-group"
 import { MagnifyingGlassIcon, CheckIcon } from "@phosphor-icons/react"
 
 function Command({

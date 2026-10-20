@@ -1,6 +1,7 @@
 {
-  "name": "@task-moon/ui",
+  "name": "@anggit-mono/ui",
   "private": true,
+  "displayName": "Anggit Mono UI",
   "type": "module",
   "exports": {
     "./globals.css": "./src/styles/globals.css",

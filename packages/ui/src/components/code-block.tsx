@@ -4,7 +4,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
-import { Button } from "@task-moon/ui/components/button"
+import { Button } from "@anggit-mono/ui/components/button"
 import { CheckIcon, CopyIcon } from "@phosphor-icons/react"
 
 const codeBlockVariants = cva(

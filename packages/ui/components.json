@@ -13,11 +13,11 @@
   "iconLibrary": "phosphor",
   "rtl": false,
   "aliases": {
-    "components": "@task-moon/ui/components",
-    "utils": "@task-moon/ui/lib/utils",
-    "ui": "@task-moon/ui/components",
-    "lib": "@task-moon/ui/lib",
-    "hooks": "@task-moon/ui/hooks"
+    "components": "@anggit-mono/ui/components",
+    "utils": "@anggit-mono/ui/lib/utils",
+    "ui": "@anggit-mono/ui/components",
+    "lib": "@anggit-mono/ui/lib",
+    "hooks": "@anggit-mono/ui/hooks"
   },
   "menuColor": "default",
   "menuAccent": "subtle"

@@ -1,8 +1,8 @@
 {
-  "name": "task-moon",
+  "name": "anggit-mono",
   "private": true,
-  "displayName": "Task Moon",
-  "description": "A simple task management",
+  "displayName": "Anggit Mono",
+  "description": "A full-stack TypeScript monorepo boilerplate with Next.js, NestJS, Prisma, PostgreSQL, and shared UI",
   "version": "0.1.0",
   "homepage": "PROJECT_GIT_REPOSITORY_URL",
   "license": "UNLICENSED",

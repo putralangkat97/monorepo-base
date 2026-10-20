@@ -6,7 +6,7 @@ import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
 
-import { Button } from "@task-moon/ui/components/button"
+import { Button } from "@anggit-mono/ui/components/button"
 import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react"
 
 type CarouselApi = UseEmblaCarouselType[1]
