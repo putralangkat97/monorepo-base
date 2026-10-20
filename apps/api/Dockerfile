@@ -15,7 +15,10 @@ COPY . .
 RUN pnpm --filter @anggit-mono/database build \
   && pnpm --filter @anggit-mono/domain build \
   && pnpm --filter @anggit-mono/api build \
-  && pnpm deploy --filter @anggit-mono/api --prod /runtime
+  && pnpm deploy --filter @anggit-mono/api --prod /runtime \
+  && cp -r apps/api/dist /runtime/dist \
+  && cp -r packages/database/dist /runtime/node_modules/.pnpm/@anggit-mono+database@*/node_modules/@anggit-mono/database/dist \
+  && cp -r packages/domain/dist /runtime/node_modules/.pnpm/@anggit-mono+domain@*/node_modules/@anggit-mono/domain/dist
 
 FROM oven/bun:1.4.3 AS runtime
 

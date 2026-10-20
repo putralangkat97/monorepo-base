@@ -59,7 +59,53 @@ Then start both Compose files:
 docker compose -f compose.yaml -f compose.database.yaml up -d --build
 ```
 
+Stop the same stack with the same files:
+
+```bash
+docker compose -f compose.yaml -f compose.database.yaml down
+```
+
+Using `docker compose down` without `compose.database.yaml` does not see the `db` service and may leave it attached to the project network.
+
 The database data is stored in the `postgres-data` Docker volume. Keep backups of that volume or use an external PostgreSQL service for production. Put a reverse proxy and TLS in front of the published ports when exposing the deployment to the internet.
+
+### Redeploy an environment
+
+Keep one environment file per deployment, such as `.env.staging` and `.env.production`. Use a different Compose project name for each environment so their containers, networks, and local database volumes stay separate.
+
+For an environment using an external PostgreSQL server:
+
+```bash
+docker compose --env-file .env.staging -p anggit-mono-staging up -d --build
+docker compose --env-file .env.production -p anggit-mono-production up -d --build
+```
+
+Set different `WEB_PORT` and `API_PORT` values in `.env.staging` if staging runs on the same server as production. The defaults are `3000` and `4000`.
+
+For an environment using the optional PostgreSQL container:
+
+```bash
+docker compose --env-file .env.staging -p anggit-mono-staging \
+  -f compose.yaml -f compose.database.yaml up -d --build
+docker compose --env-file .env.production -p anggit-mono-production \
+  -f compose.yaml -f compose.database.yaml up -d --build
+```
+
+After changing only the web or API code, rebuild only that service:
+
+```bash
+docker compose --env-file .env.production -p anggit-mono-production \
+  -f compose.yaml -f compose.database.yaml up -d --build web
+docker compose --env-file .env.production -p anggit-mono-production \
+  -f compose.yaml -f compose.database.yaml up -d --build api
+```
+
+Use the matching project name and Compose files when stopping an environment:
+
+```bash
+docker compose --env-file .env.production -p anggit-mono-production \
+  -f compose.yaml -f compose.database.yaml down
+```
 
 ## Build your app
 
@@ -71,5 +117,9 @@ The database data is stored in the `postgres-data` Docker volume. Keep backups o
 If browser code calls the API directly across ports or domains, [allow the web origin with NestJS CORS](https://docs.nestjs.com/security/cors).
 
 If your PostgreSQL database already has tables, run `pnpm --filter @anggit-mono/database exec prisma db pull` to bring them into the Prisma schema. [Baseline the existing database](https://www.prisma.io/docs/orm/v7/prisma-migrate/workflows/baselining) before using Prisma Migrate for those tables; the `migrate dev --name init` step above is for an empty database. Hosted databases may also need [a configured shadow database](https://www.prisma.io/docs/orm/prisma-migrate/understanding-prisma-migrate/shadow-database) for `migrate dev`.
+
+## Reference
+
+The monorepo structure and setup are based on [How to start monorepo with NextJS + NestJS using pnpm workspaces](https://gist.github.com/leandroluk/ead95513d3666326d364248ae98eb2e3).
 
 `pnpm build` builds the workspace; `pnpm lint` and `pnpm tsc` check it.
