@@ -8,8 +8,9 @@ services:
     environment:
       PORT: 4000
       DATABASE_URL: ${DATABASE_URL:-}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
     ports:
-      - '${API_PORT:-4000}:4000'
+      - '${BIND_ADDRESS:-127.0.0.1}:${API_PORT:-4000}:4000'
     restart: unless-stopped
     healthcheck:
       test:
@@ -17,12 +18,21 @@ services:
         - bun
         - -e
         - >-
-          fetch('http://127.0.0.1:4000/hello').then(response =>
+          fetch('http://127.0.0.1:4000/health').then(response =>
           process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
+
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: migration
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-}
+    profiles: [tools]
 
   web:
     build:
@@ -33,7 +43,7 @@ services:
       HOSTNAME: 0.0.0.0
       PORT: 3000
     ports:
-      - '${WEB_PORT:-3000}:3000'
+      - '${BIND_ADDRESS:-127.0.0.1}:${WEB_PORT:-3000}:3000'
     depends_on:
       api:
         condition: service_healthy

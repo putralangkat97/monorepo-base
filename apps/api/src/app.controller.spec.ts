@@ -19,4 +19,10 @@ describe('AppController', () => {
       expect(appController.getHello()).toBe('Hello, sum: 1 + 2 = 3');
     });
   });
+
+  describe('health', () => {
+    it('reports that the API is ready', () => {
+      expect(appController.getHealth()).toEqual({ status: 'ok' });
+    });
+  });
 });

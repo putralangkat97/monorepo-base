@@ -21,7 +21,7 @@ pnpm install
 pnpm dev
 ```
 
-Open <http://localhost:3000>. The web app fetches `Hello, world!` from <http://localhost:4000/hello> through its server component. The API's `/` route still returns a sample greeting. Neither app needs a database to run this demo. If the API is hosted elsewhere, set `API_URL` in `apps/web/.env.local` to its base URL (for example, `API_URL=https://api.example.com`).
+Open <http://localhost:3000>. The web app fetches `Hello, you!` from <http://localhost:4000/hello> through its server component. The API's `/` route still returns a sample greeting. Neither app needs a database to run this demo. If the API is hosted elsewhere, set `API_URL` in `apps/web/.env.local` to its base URL (for example, `API_URL=https://api.example.com`).
 
 ## Deploy with Docker
 
@@ -39,7 +39,7 @@ Build and start the application:
 docker compose up -d --build
 ```
 
-The web app is available on port `3000` and the API on port `4000`. To deploy a web-only change, rebuild only that service:
+The web app is available on port `3000` and the API on port `4000` on the server itself. By default, both ports bind to localhost so an external reverse proxy can handle public traffic. Set `BIND_ADDRESS=0.0.0.0` when direct network access is intentional. To deploy a web-only change, rebuild only that service:
 
 ```bash
 docker compose up -d --build web
@@ -67,7 +67,65 @@ docker compose -f compose.yaml -f compose.database.yaml down
 
 Using `docker compose down` without `compose.database.yaml` does not see the `db` service and may leave it attached to the project network.
 
-The database data is stored in the `postgres-data` Docker volume. Keep backups of that volume or use an external PostgreSQL service for production. Put a reverse proxy and TLS in front of the published ports when exposing the deployment to the internet.
+The database data is stored in the `postgres-data` Docker volume. A Docker volume is not a backup; use the backup commands below or an external PostgreSQL service for production.
+
+### Migrations, backups, and operations
+
+Create and review migrations during development:
+
+```bash
+pnpm --filter @anggit-mono/database exec prisma migrate dev --name init
+```
+
+Apply committed migrations to a deployment with the one-off Docker migration service. It does not run during normal application startup:
+
+```bash
+docker compose --env-file .env.production \
+  -p anggit-mono-production \
+  -f compose.yaml -f compose.database.yaml \
+  --profile tools run --rm migrate
+```
+
+For an external PostgreSQL server, set `DATABASE_URL` in the environment file and omit `compose.database.yaml`.
+
+Back up an external PostgreSQL database with:
+
+```bash
+pg_dump --format=custom --file=backup.dump "$DATABASE_URL"
+```
+
+Restore it into an empty database with:
+
+```bash
+pg_restore --clean --if-exists --dbname="$DATABASE_URL" backup.dump
+```
+
+For the optional Compose database, run the same commands through the container:
+
+```bash
+docker compose -f compose.yaml -f compose.database.yaml exec -T db \
+  sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" --format=custom' > backup.dump
+docker compose -f compose.yaml -f compose.database.yaml exec -T db \
+  sh -c 'pg_restore -U "$POSTGRES_USER" -d "$POSTGRES_DB" --clean --if-exists' < backup.dump
+```
+
+Inspect application logs and health status with:
+
+```bash
+docker compose -p anggit-mono-production logs -f api
+docker compose -p anggit-mono-production ps
+```
+
+### Reverse proxy and HTTPS
+
+Compose intentionally does not choose a proxy. Put Apache, Nginx, Caddy, or Traefik in front of the localhost-bound ports, terminate TLS there, and forward requests to:
+
+- web: `http://127.0.0.1:3000`
+- API: `http://127.0.0.1:4000`
+
+Forward the original `Host`, `X-Forwarded-For`, and `X-Forwarded-Proto` headers. Configure certificates, HTTP-to-HTTPS redirects, firewall rules, and renewal according to the proxy you choose.
+
+If browser or mobile clients call the API from another origin, set `CORS_ORIGINS` to a comma-separated allowlist, for example `https://app.example.com,https://staging.example.com`. Leave it empty when the API is only called server-to-server.
 
 ### Redeploy an environment
 

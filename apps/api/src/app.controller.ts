@@ -14,4 +14,9 @@ export class AppController {
   getHelloWorld(): string {
     return 'Hello, you!';
   }
+
+  @Get('health')
+  getHealth(): { status: string } {
+    return { status: 'ok' };
+  }
 }

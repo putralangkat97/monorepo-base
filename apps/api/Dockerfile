@@ -2,6 +2,9 @@ FROM node:24-bookworm-slim AS build
 
 WORKDIR /app
 RUN npm install --global pnpm@12.11.2
+RUN apt-get update \
+  && apt-get install --no-install-recommends --yes openssl \
+  && rm -rf /var/lib/apt/lists/*
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/api/package.json apps/api/package.json
@@ -19,6 +22,10 @@ RUN pnpm --filter @anggit-mono/database build \
   && cp -r apps/api/dist /runtime/dist \
   && cp -r packages/database/dist /runtime/node_modules/.pnpm/@anggit-mono+database@*/node_modules/@anggit-mono/database/dist \
   && cp -r packages/domain/dist /runtime/node_modules/.pnpm/@anggit-mono+domain@*/node_modules/@anggit-mono/domain/dist
+
+FROM build AS migration
+
+CMD ["pnpm", "--filter", "@anggit-mono/database", "exec", "prisma", "migrate", "deploy"]
 
 FROM oven/bun:1.4.3 AS runtime
 
