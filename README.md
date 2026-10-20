@@ -8,6 +8,7 @@ A full-stack TypeScript monorepo boilerplate with Next.js, NestJS, Prisma, Postg
 | `apps/web` | Next.js app using shared UI components |
 | `packages/database` | Prisma schema, generated client, and PostgreSQL connection |
 | `packages/domain` | Code shared by the API and web app |
+| `packages/types` | TypeScript types shared by the API and web app |
 | `packages/ui` | Reusable React components |
 
 ## Get started
@@ -22,6 +23,29 @@ pnpm dev
 ```
 
 Open <http://localhost:3000>. The web app fetches `Hello, you!` from <http://localhost:4000/hello> through its server component. The API's `/` route still returns a sample greeting. Neither app needs a database to run this demo. If the API is hosted elsewhere, set `API_URL` in `apps/web/.env.local` to its base URL (for example, `API_URL=https://api.example.com`).
+
+### Development with the local database
+
+The optional Compose database uses PostgreSQL 18. To run PostgreSQL in Docker while running the web and API with `pnpm dev`:
+
+```bash
+docker compose -f compose.yaml -f compose.database.yaml up -d db
+pnpm dev
+```
+
+The database is available at `127.0.0.1:5432`. For Prisma commands or API database access from the host, create `packages/database/.env`:
+
+```dotenv
+DATABASE_URL=postgresql://app:change-this-password@127.0.0.1:5432/app
+```
+
+Stop only PostgreSQL when finished:
+
+```bash
+docker compose -f compose.yaml -f compose.database.yaml stop db
+```
+
+If the full Docker stack is already running, stop only its `api` and `web` services before starting `pnpm dev`; keep `db` running.
 
 ## Deploy with Docker
 
@@ -168,9 +192,10 @@ docker compose --env-file .env.production -p anggit-mono-production \
 ## Build your app
 
 1. Add API routes and services in `apps/api`. Fetch them from Next.js server components in `apps/web`, as the home page does. Put reusable React components in `packages/ui` and shared code in `packages/domain`.
-2. When you need PostgreSQL, use an available PostgreSQL server. Copy `packages/database/.env.example` to `packages/database/.env` and set `DATABASE_URL` to your connection string; an exported `DATABASE_URL` takes precedence.
+2. When you need PostgreSQL, use an available PostgreSQL server or the local PostgreSQL 18 Compose service. Copy `packages/database/.env.example` to `packages/database/.env` and set `DATABASE_URL` to your connection string; an exported `DATABASE_URL` takes precedence.
 3. Add models to [`packages/database/prisma/schema.prisma`](packages/database/prisma/schema.prisma). For a new, empty database, create and apply the first migration with `pnpm --filter @anggit-mono/database exec prisma migrate dev --name init`.
-4. Regenerate and compile the shared client with `pnpm --filter @anggit-mono/database build`. Register `DatabaseService` from `apps/api/src/database.service.ts` in `AppModule`, then inject it into services that query through Prisma. Restart `pnpm dev` after changing the schema.
+4. Put shared API/web contracts in `packages/types` and import them with `@anggit-mono/types`.
+5. Regenerate and compile the shared client with `pnpm --filter @anggit-mono/database build`. Register `DatabaseService` from `apps/api/src/database.service.ts` in `AppModule`, then inject it into services that query through Prisma. Restart `pnpm dev` after changing the schema.
 
 If browser code calls the API directly across ports or domains, [allow the web origin with NestJS CORS](https://docs.nestjs.com/security/cors).
 
@@ -181,3 +206,14 @@ If your PostgreSQL database already has tables, run `pnpm --filter @anggit-mono/
 The monorepo structure and setup are based on [How to start monorepo with NextJS + NestJS using pnpm workspaces](https://gist.github.com/leandroluk/ead95513d3666326d364248ae98eb2e3).
 
 `pnpm build` builds the workspace; `pnpm lint` and `pnpm tsc` check it.
+
+## Versioning
+
+Releases use Git tags matching the root package version, such as `v0.1.0`:
+
+```bash
+git tag -a v0.1.0 -m "Release v0.1.0"
+git push origin v0.1.0
+```
+
+Use semantic versioning for future releases and update the root `package.json` version before creating the matching tag.
