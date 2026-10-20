@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import type { GreetingResponse } from '@anggit-mono/types';
 import { AppService } from './app.service.js';
 
 @Controller()
@@ -11,7 +12,7 @@ export class AppController {
   }
 
   @Get('hello')
-  getHelloWorld(): string {
+  getHelloWorld(): GreetingResponse {
     return 'Hello, you!';
   }
 

@@ -25,4 +25,10 @@ describe('AppController', () => {
       expect(appController.getHealth()).toEqual({ status: 'ok' });
     });
   });
+
+  describe('hello', () => {
+    it('returns the shared greeting response', () => {
+      expect(appController.getHelloWorld()).toBe('Hello, you!');
+    });
+  });
 });

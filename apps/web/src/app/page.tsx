@@ -1,5 +1,6 @@
 import {Suspense} from 'react';
 import {connection} from 'next/server';
+import type {GreetingResponse} from '@anggit-mono/types';
 
 async function HelloFromApi() {
   await connection();
@@ -11,7 +12,9 @@ async function HelloFromApi() {
     throw new Error(`API returned ${response.status}`);
   }
 
-  return <p>{await response.text()}</p>;
+  const greeting: GreetingResponse = await response.text();
+
+  return <p>{greeting}</p>;
 }
 
 export default function Home() {
