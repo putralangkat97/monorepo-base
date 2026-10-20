@@ -1,6 +1,8 @@
 import {Suspense} from 'react';
+import {connection} from 'next/server';
 
 async function HelloFromApi() {
+  await connection();
   const response = await fetch(
     `${process.env.API_URL ?? 'http://localhost:4000'}/hello`,
   );

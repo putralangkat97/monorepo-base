@@ -23,6 +23,44 @@ pnpm dev
 
 Open <http://localhost:3000>. The web app fetches `Hello, world!` from <http://localhost:4000/hello> through its server component. The API's `/` route still returns a sample greeting. Neither app needs a database to run this demo. If the API is hosted elsewhere, set `API_URL` in `apps/web/.env.local` to its base URL (for example, `API_URL=https://api.example.com`).
 
+## Deploy with Docker
+
+Docker Compose runs the web and API as separate services, so you can rebuild one without restarting the others. The production containers run on Bun; Node.js and pnpm are not required on the server.
+
+Create a `.env` file from the template and edit the values for your server:
+
+```bash
+cp .env.example .env
+```
+
+Build and start the application:
+
+```bash
+docker compose up -d --build
+```
+
+The web app is available on port `3000` and the API on port `4000`. To deploy a web-only change, rebuild only that service:
+
+```bash
+docker compose up -d --build web
+```
+
+The default stack expects PostgreSQL to be provided separately. To run a local PostgreSQL container instead, add these values to `.env`:
+
+```dotenv
+POSTGRES_USER=app
+POSTGRES_PASSWORD=change-this-password
+POSTGRES_DB=app
+```
+
+Then start both Compose files:
+
+```bash
+docker compose -f compose.yaml -f compose.database.yaml up -d --build
+```
+
+The database data is stored in the `postgres-data` Docker volume. Keep backups of that volume or use an external PostgreSQL service for production. Put a reverse proxy and TLS in front of the published ports when exposing the deployment to the internet.
+
 ## Build your app
 
 1. Add API routes and services in `apps/api`. Fetch them from Next.js server components in `apps/web`, as the home page does. Put reusable React components in `packages/ui` and shared code in `packages/domain`.
